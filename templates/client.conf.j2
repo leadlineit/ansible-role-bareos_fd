@@ -1,0 +1,17 @@
+#{{ ansible_managed }}
+FileDaemon {
+    Name = {{ item.name }}
+    FDport = {{ item.fdport }}
+    Description = "{{ item.description | default(item.name) }}"
+    Plugin Directory = /usr/lib/bareos/plugins
+    WorkingDirectory = /var/lib/bareos
+    Pid Directory = /var/lib/bareos
+    Maximum Concurrent Jobs = 20
+{% if item.tls_enabled is defined %}
+    TLS Enable = {{ item.tls_enabled }}
+    TLS Require = {{ item.tls_enabled }}
+    TLS CA Certificate File = /etc/bareos/keys/ca.crt
+    TLS Certificate = /etc/bareos/keys/{{ item.name }}.crt
+    TLS Key = /etc/bareos/keys/{{ item.name }}.key
+{% endif %}
+}
