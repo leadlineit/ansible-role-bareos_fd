@@ -1,5 +1,4 @@
 ---
-# defaults file for leadlineit.bareos_fd
 bareos_release: 21
 bareos_fd:
   director:

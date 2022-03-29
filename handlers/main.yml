@@ -1,6 +1,4 @@
 ---
-# handlers file for leadlineit.bareos_fd
-
 - name: enable bareos-fd service
   service:
     name: bareos-fd
