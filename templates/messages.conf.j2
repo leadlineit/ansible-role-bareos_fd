@@ -2,5 +2,5 @@
 Messages {
     Name = {{ item.name }}
     Director = {{ item.server }} = all
-    Description = "Send all messages to the {{ item.server }} Director."
+    Description = "{{ item.description | default(item.name) }}"
 }

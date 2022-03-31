@@ -1,7 +1,12 @@
 #{{ ansible_managed }}
-FileDaemon {
+Client {
     Name = {{ item.name }}
     FDport = {{ item.fdport }}
+{% if item.password is defined %}
+    Password = "{{ item.password }}"
+{% else %}
+    Password = ""
+{% endif %}
     Description = "{{ item.description | default(item.name) }}"
     Plugin Directory = /usr/lib/bareos/plugins
     WorkingDirectory = /var/lib/bareos

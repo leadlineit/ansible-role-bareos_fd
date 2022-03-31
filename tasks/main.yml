@@ -3,8 +3,22 @@
   tags:
     - install_bareos_fd
     - install
+    - bareos_fd
 
-- import_tasks: configure.yml
+- import_tasks: director.yml
   tags:
     - configure_bareos_fd
-    - configure
+    - bareos_fd_director
+    - bareos_fd
+
+- import_tasks: client.yml
+  tags:
+    - configure_bareos_fd
+    - bareos_fd_client
+    - bareos_fd
+
+- import_tasks: messages.yml
+  tags:
+    - configure_bareos_fd
+    - bareos_fd_messages
+    - bareos_fd

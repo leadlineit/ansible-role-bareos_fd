@@ -1,4 +1,6 @@
 ---
+bareos_keyserver: keyserver.ubuntu.com
+bareos_apt_key: E01957D6C9FED482
 bareos_release: 21
 bareos_fd:
   director:
@@ -7,14 +9,16 @@ bareos_fd:
       password: DIRAver@gEStr0ngPaSSw0rd
       tls_enabled: yes
     - name: your-mon
+      description: Restricted Director monitor description
       password: MONAver@gEStr0ngPaSSw0rd
       monitor: "Yes"
-      description: Restricted Director monitor description
   client:
-    - name: "{{ ansible_nodename }}"
+    - name: your-client
       description: Your Bareos client
       fdport: 9102
+      password: ClientAver@gEStr0ngPaSSw0rd
       tls_enabled: yes
   messages:
     - name: your-messages
+      description: Messages description
       server: your-dir
