@@ -6,18 +6,21 @@
     - bareos_fd
 
 - import_tasks: director.yml
+  when: bareos_fd.director is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_director
     - bareos_fd
 
 - import_tasks: client.yml
+  when: bareos_fd.client is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_client
     - bareos_fd
 
 - import_tasks: messages.yml
+  when: bareos_fd.messages is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_messages

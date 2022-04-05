@@ -15,8 +15,8 @@ Client {
 {% if item.tls_enabled is defined %}
     TLS Enable = {{ item.tls_enabled }}
     TLS Require = {{ item.tls_enabled }}
-    TLS CA Certificate File = /etc/bareos/keys/ca.crt
-    TLS Certificate = /etc/bareos/keys/{{ item.name }}.crt
-    TLS Key = /etc/bareos/keys/{{ item.name }}.key
+    TLS CA Certificate File = {{ bareos_tls_path }}/CA.crt
+    TLS Certificate = {{ bareos_tls_path }}/{{ item.name }}.crt
+    TLS Key = {{ bareos_tls_path }}/{{ item.name }}.key
 {% endif %}
 }

@@ -1,17 +1,14 @@
 ---
 - name: Create tls location if that need
   file: 
-    path: "{{ item }}"
+    path: "{{ bareos_tls_path }}"
     state: directory
     mode: '0755'
     owner: bareos
     group: bareos
-  with_items:
-    - "/etc/bareos/tls"
 
 - name: Configure bareos-fd clients
   no_log: true
-  when: bareos_fd.client is defined
   template:
     src: client.conf.j2
     dest: /etc/bareos/bareos-fd.d/client/{{ item.name }}.conf

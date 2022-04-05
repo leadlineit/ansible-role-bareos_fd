@@ -1,7 +1,6 @@
 ---
 - name: Configure bareos-fd director
   no_log: true
-  when: bareos_fd.director is defined
   template:
     src: director.conf.j2
     dest: /etc/bareos/bareos-fd.d/director/{{ item.name }}.conf

@@ -1,6 +1,5 @@
 ---
 - name: Configure bareos-fd messages
-  when: bareos_fd.messages is defined
   template:
     src: messages.conf.j2
     dest: /etc/bareos/bareos-fd.d/messages/{{ item.name }}.conf

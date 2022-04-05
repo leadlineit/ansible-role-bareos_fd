@@ -12,8 +12,8 @@ Director {
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}
     TLS Verify Peer = yes
-    TLS CA Certificate File = /etc/bareos/tls/ca.crt
-    TLS Certificate = /etc/bareos/tls/"{{ item.name }}".crt
-    TLS Key = /etc/bareos/tls/"{{ item.name }}".key
+    TLS CA Certificate File = {{ bareos_tls_path }}/CA.crt
+    TLS Certificate = {{ bareos_tls_path }}/{{ item.name }}.crt
+    TLS Key = {{ bareos_tls_path }}/{{ item.name }}.key
 {% endif %}
 }
