@@ -1,6 +1,6 @@
 ---
 - name: Create tls location if that need
-  file: 
+  ansible.builtin.file: 
     path: "{{ bareos_tls_path }}"
     state: directory
     mode: '0755'
@@ -9,7 +9,7 @@
 
 - name: Configure bareos-fd clients
   no_log: true
-  template:
+  ansible.builtin.template:
     src: client.conf.j2
     dest: /etc/bareos/bareos-fd.d/client/{{ item.name }}.conf
     mode: '0640'

@@ -1,7 +1,7 @@
 ---
 - name: Configure bareos-fd director
   no_log: true
-  template:
+  ansible.builtin.template:
     src: director.conf.j2
     dest: /etc/bareos/bareos-fd.d/director/{{ item.name }}.conf
     mode: '0640'
