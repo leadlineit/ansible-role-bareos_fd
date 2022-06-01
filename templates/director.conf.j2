@@ -7,7 +7,6 @@ Director {
 {% if item.tls_enable is defined %}    
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}
-    TLS Verify Peer = yes
     TLS CA Certificate File = {{ bareos_tls_path }}/CA.crt
     TLS Certificate = {{ bareos_tls_path }}/{{ bareos_tls_certs }}.crt
     TLS Key = {{ bareos_tls_path }}/{{ bareos_tls_certs }}.key

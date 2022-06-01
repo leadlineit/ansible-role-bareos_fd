@@ -28,18 +28,18 @@ bareos_fd:
     - name: your-dir
       description: Director, who is permitted to contact this file daemon.
       password: DIRAver@gEStr0ngPaSSw0rd
-      tls_enabled: yes
+      tls_enable: "yes"
     - name: your-mon
       description: Restricted Director monitor description
       password: MONAver@gEStr0ngPaSSw0rd
       monitor: "Yes"
-      tls_enabled: yes
+      tls_enable: "yes"
   client:
     - name: your-client
       description: Your Bareos client
       fdport: 9102
       password: ClientAver@gEStr0ngPaSSw0rd
-      tls_enabled: yes
+      tls_enable: "yes"
   messages:
     - name: your-messages
       description: Messages description
