@@ -3,7 +3,7 @@ Director {
     Name = {{ item.name }}
     Description = "{{ item.description | default(item.name) }}"
     Password = "{{ item.password | default() }}"
-    Monitor = {{ item.monitor | default("No") }}
+    Monitor = {{ item.monitor | default("no") }}
 {% if item.tls_enable is defined %}    
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}

@@ -14,7 +14,7 @@ bareos_fd:
     - name: your-mon
       description: Restricted Director monitor description
       password: MONAver@gEStr0ngPaSSw0rd
-      monitor: "Yes"
+      monitor: "yes"
       tls_enable: "yes"
   client:
     - name: your-client
