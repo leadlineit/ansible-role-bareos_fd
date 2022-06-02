@@ -49,14 +49,6 @@ bareos_fd:
 The variables above are optional. They don't have a default value, so if you don't define them - tasks using them will be skipped. 
 You can set only some of them, or not set at all (in this case, you will simply install Bareos Storage with default configuration). 
 
-Variable 'bareos_release' are optional.
-Default values for optional variable:
-
-```yaml
----
-bareos_release: 21
-```
-
 Dependencies
 ------------
 
