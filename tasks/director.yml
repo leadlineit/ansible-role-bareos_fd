@@ -10,3 +10,19 @@
   with_items: "{{ bareos_fd.director }}"
   notify:
     - restart bareos-fd service
+
+- name: Find unmanaged bareos-fd director configurations
+  ansible.builtin.find:
+    paths: /etc/bareos/bareos-fd.d/director
+    file_type: file
+    excludes: "{{ bareos_fd.director | map(attribute='name') | product(['.conf']) | map('join') | flatten }}"
+  register: ffout
+
+- name: Remove unmanaged bareos-fd director configurations
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ ffout.files | map(attribute='path') | unique }}"
+  notify:
+    - restart bareos-fd service

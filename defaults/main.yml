@@ -20,7 +20,6 @@ bareos_fd:
     - name: your-client
       description: Your Bareos client
       fdport: 9102
-      password: ClientAver@gEStr0ngPaSSw0rd
       tls_enable: "yes"
   messages:
     - name: your-messages

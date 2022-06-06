@@ -3,7 +3,6 @@ Client {
     Name = {{ item.name }}
     Description = "{{ item.description | default(item.name) }}"
     FDport = {{ item.fdport | default("9102") }}
-    Password = "{{ item.password | default() }}"
     Plugin Directory = /usr/lib/bareos/plugins
     WorkingDirectory = /var/lib/bareos
     Pid Directory = /var/lib/bareos
