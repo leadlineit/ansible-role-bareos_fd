@@ -5,7 +5,6 @@ Client {
     FDport = {{ item.fdport | default("9102") }}
     Plugin Directory = /usr/lib/bareos/plugins
     WorkingDirectory = /var/lib/bareos
-    Pid Directory = /var/lib/bareos
     Maximum Concurrent Jobs = 20
 {% if item.tls_enable is defined %}
     TLS Enable = {{ item.tls_enable }}
