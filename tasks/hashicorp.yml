@@ -1,13 +1,13 @@
 ---
 - name: Checking if client certificate are exist
   ansible.builtin.uri:
-    url: "{{ bareos_dir.hashicorp_vault.address }}/v1/{{ item.client }}/data/hosts/{{ item.name }}/bareos-certs"
+    url: "{{ bareos_fd.hashicorp_vault.address }}/v1/{{ item.client }}/data/hosts/{{ item.name }}/bareos-certs"
     headers:
-      X-Vault-Token: "{{ bareos_dir.hashicorp_vault.token }}"
+      X-Vault-Token: "{{ bareos_fd.hashicorp_vault.token }}"
       Content-Type: "application/json"
   register: cnout
   failed_when: false
-  loop: "{{ bareos_dir.hashicorp_vault.clients }}"
+  loop: "{{ bareos_fd.hashicorp_vault.clients }}"
 
 - name: Create list for status code
   ansible.builtin.set_fact:
@@ -20,10 +20,10 @@
 
 - name: Generate client certificate's with Hashicorp Vault
   ansible.builtin.uri:
-    url: "{{ bareos_dir.hashicorp_vault.address }}/v1/{{ bareos_dir.hashicorp_vault.path }}/issue/{{ item.client }}"
+    url: "{{ bareos_fd.hashicorp_vault.address }}/v1/{{ bareos_fd.hashicorp_vault.path }}/issue/{{ item.client }}"
     method: POST
     headers:
-      X-Vault-Token: "{{ bareos_dir.hashicorp_vault.token }}"
+      X-Vault-Token: "{{ bareos_fd.hashicorp_vault.token }}"
       Content-Type: "application/json"
     return_content: yes
     body_format: json
@@ -43,12 +43,11 @@
     label:
       - "{{ item.item.cname }}"
 
-- name: Save client certificate locally to home directory
+- name: Save client certificate to Bareos TLS directory (bareos_tls_path)
   ansible.builtin.copy:
     content: "{{ item.certificate }}"
-    dest: "~/{{ item.cname }}.crt"
+    dest: "{{ bareos_tls_path }}/{{ item.cname }}.crt"
     mode: '0600'
-  delegate_to: localhost
   when: 
     - item is defined
     - item.status == 404
@@ -58,12 +57,11 @@
     label: 
       - "{{ item.cname }}.crt"
 
-- name: Save client private key locally to home directory
+- name: Save client private key to Bareos TLS directory (bareos_tls_path)
   ansible.builtin.copy:
     content: "{{ item.priv_key }}"
-    dest: "~/{{ item.cname }}.key"
+    dest: "{{ bareos_tls_path }}/{{ item.cname }}.key"
     mode: '0600'
-  delegate_to: localhost
   when: 
     - item is defined
     - item.status == 404
@@ -75,10 +73,10 @@
 
 - name: Add client serial number to Hashicorp Vault
   ansible.builtin.uri:
-    url: "{{ bareos_dir.hashicorp_vault.address }}/v1/{{ item.client }}/data/hosts/{{ item.cname }}/bareos-certs"
+    url: "{{ bareos_fd.hashicorp_vault.address }}/v1/{{ item.client }}/data/hosts/{{ item.cname }}/bareos-certs"
     method: POST
     headers:
-      X-Vault-Token: "{{ bareos_dir.hashicorp_vault.token }}"
+      X-Vault-Token: "{{ bareos_fd.hashicorp_vault.token }}"
       Content-Type: "application/json"
     body_format: json
     body:
@@ -93,35 +91,3 @@
     label: 
       - "{{ item.cname }}"
       - "{{ item.serial_number }}"
-
-- name: Copy client certificate from local home directory to remote client (bareos_tls_path)
-  ansible.builtin.copy:
-    src: "~/{{ item.cname }}.crt"
-    dest: "{{ bareos_tls_path }}/{{ item.cname }}.crt"
-    mode: '0600'
-    owner: bareos
-    group: bareos
-  when: 
-    - item is defined
-    - item.status == 404
-  with_items: "{{ cert_list }}"
-  run_once: true
-  loop_control:
-    label: 
-      - "{{ item.cname }}.crt"
-
-- name: Copy client private key from local home directory to remote client (bareos_tls_path)
-  ansible.builtin.copy:
-    src: "~/{{ item.cname }}.key"
-    dest: "{{ bareos_tls_path }}/{{ item.cname }}.key"
-    mode: '0600'
-    owner: bareos
-    group: bareos
-  when: 
-    - item is defined
-    - item.status == 404
-  with_items: "{{ cert_list }}"
-  run_once: true
-  loop_control:
-    label: 
-      - "{{ item.cname }}.key"
