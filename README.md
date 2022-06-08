@@ -46,7 +46,56 @@ bareos_fd:
 ```
 
 The variables above are optional. They don't have a default value, so if you don't define them - tasks using them will be skipped. 
-You can set only some of them, or not set at all (in this case, you will simply install Bareos Storage with default configuration). 
+You can set only some of them, or not set at all (in this case, you will simply install Bareos Storage with default configuration).
+Also, you can use HashiCorp Vault for store client certificates (when you use Bareos with TLS)
+Variable for this (optional too):
+
+```yaml
+---
+  hashicorp_vault:
+    address: your.vault.com
+    token: your_token
+    path: your-path-to-certs
+    clients:
+      - name: host1.client1
+        client: client1
+        ttl: 24h
+      - name: host2.client1
+        client: client1
+        ttl: 18h
+      - name: host01.client2
+        client: client2
+        ttl: 12h
+      - name: host02.client2
+        client: client2
+        ttl: 96h
+```
+
+Another thing you can do is remotely add client configuration to your main Bareos Director server.
+Variable for this (optional too):
+
+```yaml
+---
+bareos_server: you.bareos.dir.server
+
+bareos_dir:
+  client:
+    - name: your-client
+      description: Your client configuration
+      address: 10.0.0.1
+      fdport: 9102
+      passive: "yes"
+      tls_enable: "yes"
+      jobs:
+        - name: client-job1
+          description: Job1 for client
+          client: client.name.com
+          jobdef: your-jobdefs1
+        - name: client-job2
+          description: Job2 for client
+          client: client.name.com
+          jobdef: your-jobdefs2
+```
 
 Dependencies
 ------------

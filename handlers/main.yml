@@ -8,3 +8,9 @@
   ansible.builtin.service:
     name: bareos-fd
     state: restarted
+
+- name: restart bareos-dir service
+  ansible.builtin.service:
+    name: bareos-dir
+    state: restarted
+  delegate_to: "{{ bareos_server }}"
