@@ -34,7 +34,7 @@
     - bareos_fd
 
 - import_tasks: client_dir.yml
-  when: bareos_dir.client is defined
+  when: bareos_server is defined
   tags:
     - configure_bareos_dir
     - bareos_dir_client
