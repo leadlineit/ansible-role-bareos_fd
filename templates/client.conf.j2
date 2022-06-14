@@ -1,6 +1,6 @@
 #{{ ansible_managed }}
 Client {
-    Name = {{ item.name }}
+    Name = {{ item.name }}-fd
     Description = "{{ item.description | default(item.name) }}"
     FDport = {{ item.fdport | default("9102") }}
     Plugin Directory = /usr/lib/bareos/plugins
