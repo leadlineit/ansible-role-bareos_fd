@@ -11,7 +11,7 @@
 
 - name: Create list for status code
   ansible.builtin.set_fact:
-    stat_list: "{{ stat_list | default([]) + [ { 'cname': item.item.name, 'status': item.status_code, 'client': item.item.client, 'role': item.item.role, 'ttl': item.item.ttl } ] }}"
+    stat_list: "{{ stat_list | default([]) + [ { 'cname': item.item.name, 'status': item.status, 'client': item.item.client, 'role': item.item.role, 'ttl': item.item.ttl } ] }}"
   with_items: "{{ cnout.results }}"
   loop_control:
     label: 
