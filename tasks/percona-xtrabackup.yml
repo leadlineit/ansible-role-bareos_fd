@@ -17,11 +17,12 @@
   ansible.builtin.command: percona-release enable-only tools
   changed_when: false
 
-- name: Install Percona XtraBackup 8.0 and qpress
+- name: Install Percona XtraBackup 8.0 with Bareos plugin and qpress
   ansible.builtin.apt:
     update_cache: true
     name: "{{ item }}"
     state: present
   with_items:
+    - bareos-filedaemon-percona-xtrabackup-python-plugin
     - percona-xtrabackup-80
     - qpress
