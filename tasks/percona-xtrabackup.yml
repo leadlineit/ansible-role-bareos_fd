@@ -26,3 +26,5 @@
     - bareos-filedaemon-percona-xtrabackup-python-plugin
     - percona-xtrabackup-80
     - qpress
+  notify:
+    - restart bareos-fd service
