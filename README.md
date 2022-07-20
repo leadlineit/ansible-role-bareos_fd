@@ -24,6 +24,7 @@ bareos_tls_path: /etc/bareos/tls
 bareos_tls_certs: your.bareos.dir.com
 
 bareos_fd:
+  percona-xtrabackup: "yes"
   director:
     - name: your-dir
       description: Director, who is permitted to contact this file daemon.

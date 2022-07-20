@@ -19,6 +19,13 @@
     - bareos_fd_client
     - bareos_fd
 
+- import_tasks: percona-xtrabackup.yml
+  when: bareos_fd.percona_xtrabackup is defined
+  tags:
+    - configure_bareos_fd
+    - bareos_fd_percona_xtrabackup
+    - bareos_fd
+
 - import_tasks: hashicorp.yml
   when: bareos_fd.hashicorp_vault is defined
   tags:

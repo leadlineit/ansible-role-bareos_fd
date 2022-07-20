@@ -1,0 +1,27 @@
+---
+- name: Update repo cache and install a few prerequisite packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - xz-utils
+
+- name: Wget percona-release and install it with dpkg
+  ansible.builtin.apt:
+    deb: "{{ item }}"
+  with_items:
+    - "https://repo.percona.com/apt/percona-release_latest.{{ ansible_distribution_release }}_all.deb"
+
+- name: Enable tools for percona-release
+  ansible.builtin.command: percona-release enable-only tools
+  changed_when: false
+
+- name: Install Percona XtraBackup 8.0 and qpress
+  ansible.builtin.apt:
+    update_cache: true
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - percona-xtrabackup-80
+    - qpress
