@@ -24,7 +24,6 @@ bareos_tls_path: /etc/bareos/tls
 bareos_tls_certs: your.bareos.dir.com
 
 bareos_fd:
-  percona-xtrabackup: "yes"
   director:
     - name: your-dir
       description: Director, who is permitted to contact this file daemon.
@@ -48,6 +47,17 @@ bareos_fd:
 
 The variables above are optional. They don't have a default value, so if you don't define them - tasks using them will be skipped. 
 You can set only some of them, or not set at all (in this case, you will simply install Bareos Storage with default configuration).
+
+You can install and adjust Percona XtraBackup for MySQL bkp with:
+
+```yaml
+---
+  percona-xtrabackup: "yes"
+```
+
+The version of Percona XtraBackup will be dependent on your MySQL Server('mysql-community-server') version.
+Say "yes", only when you had 'mysql-community-server' on host.
+
 Also, you can use HashiCorp Vault for store client certificates (when you use Bareos with TLS)
 Variable for this (optional too):
 
