@@ -14,7 +14,18 @@
     id: "{{ bareos_apt_key }}"
     state: present
 
-- name: Add the Bareos repository to APT sources
+- name: Add the Bareos repository to APT sources for Debian 9.0
+  when: ansible_distribution_release == "stretch"
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+    state: present
+    filename: bareos
+    mode: '0644'
+  with_items:
+    - "deb https://download.bareos.org/bareos/release/{{ bareos_release }}/Debian_{{ ansible_distribution_major_version }}.0 /"
+
+- name: Add the Bareos repository to APT sources for Debian 10/11
+  when: ansible_distribution_release != "stretch"
   ansible.builtin.apt_repository:
     repo: "{{ item }}"
     state: present

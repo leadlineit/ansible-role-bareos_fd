@@ -3,7 +3,7 @@
 ![Build Status](https://github.com/leadlineit/ansible-role-bareos_fd/actions/workflows/ansible-galaxy-ci.yml/badge.svg)
 [![Galaxy Role](https://img.shields.io/badge/Ansible--Galaxy-leadlineit.bareos_fd-blue.svg?logo=ansible&logoColor=white)](https://galaxy.ansible.com/leadlineit/bareos_fd/)
 
-This role helps to install and configure Bareos File Daemon to Debian (buster/bullseye).
+This role helps to install and configure Bareos File Daemon to Debian (stretch/buster/bullseye).
 
 Requirements
 ------------
