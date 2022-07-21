@@ -9,7 +9,7 @@
     name: bareos-fd
     state: restarted
 
-- name: restart bareos-dir service
+- name: reload bareos-dir service
   ansible.builtin.service:
     name: bareos-dir
     state: reloaded
