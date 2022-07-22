@@ -14,6 +14,7 @@ lint: |
   flake8
 platforms:
   - name: instance-debian
+    when: MOLECULE_RELEASE == "debian"
     image: "6nsh/debian:molecule-${MOLECULE_DISTRO:-bullseye}"
     command: ""
     volumes:
@@ -21,6 +22,7 @@ platforms:
     privileged: true
     pre_build_image: true
   - name: instance-centos
+    when: MOLECULE_RELEASE == "centos"
     image: "6nsh/centos:molecule-${MOLECULE_DISTRO:-stream8}"
     command: ""
     volumes:
