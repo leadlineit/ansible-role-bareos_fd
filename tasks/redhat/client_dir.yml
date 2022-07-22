@@ -1,0 +1,12 @@
+---
+- name: Remote configure bareos-dir clients
+  ansible.builtin.template:
+    src: client_dir.conf.j2
+    dest: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  delegate_to: "{{ bareos_server }}"
+  with_items: "{{ bareos_dir.client }}"
+  notify:
+    - reload bareos-dir service

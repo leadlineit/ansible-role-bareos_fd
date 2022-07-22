@@ -1,0 +1,37 @@
+---
+- name: Update repo cache and install a few prerequisite packages
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - gnupg2
+
+- name: Add the Bareos repository to YUM repo for CentOS 7
+  when: ansible_distribution_major_version == "7"
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: /etc/yum.repos.d/bareos.repo
+    mode: '0644'
+  with_items:
+    - "https://download.bareos.org/bareos/release/{{ bareos_release }}/CentOS_7/bareos.repo"
+
+- name: Add the Bareos repository to YUM repo for CentOS 8 Stream
+  when: ansible_distribution_major_version == "8"
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: /etc/yum.repos.d/bareos.repo
+    mode: '0644'
+  with_items:
+    - "https://download.bareos.org/bareos/release/{{ bareos_release }}/EL_8/bareos.repo"
+
+- name: Install Bareos File Daemon
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - bareos-filedaemon
+  notify:
+    - enable bareos-fd service
+    - restart bareos-fd service

@@ -11,9 +11,14 @@ galaxy_info:
         - bullseye
         - buster
         - stretch
+    - name: EL
+      versions:
+        - '8'
+        - '7'
   galaxy_tags:
     - system
     - debian
+    - el
     - backup
     - bareos
     - filedaemon

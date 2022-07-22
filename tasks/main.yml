@@ -1,48 +1,14 @@
 ---
-- import_tasks: install.yml
+- name: Setup role for Debian system
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.include_tasks: debian.yml
   tags:
-    - install_bareos_fd
-    - install
-    - bareos_fd
+    - system
+    - debian
 
-- import_tasks: director.yml
-  when: bareos_fd.director is defined
+- name: Setup role for RedHat system
+  when: ansible_os_family == 'RedHat'
+  ansible.builtin.include_tasks: redhat.yml
   tags:
-    - configure_bareos_fd
-    - bareos_fd_director
-    - bareos_fd
-
-- import_tasks: client.yml
-  when: bareos_fd.client is defined
-  tags:
-    - configure_bareos_fd
-    - bareos_fd_client
-    - bareos_fd
-
-- import_tasks: percona-xtrabackup.yml
-  when: bareos_fd.percona_xtrabackup is defined
-  tags:
-    - configure_bareos_fd
-    - bareos_fd_percona_xtrabackup
-    - bareos_fd
-
-- import_tasks: hashicorp.yml
-  when: bareos_fd.hashicorp_vault is defined
-  tags:
-    - configure_bareos_fd
-    - bareos_fd_hashicorp
-    - bareos_fd
-
-- import_tasks: messages.yml
-  when: bareos_fd.messages is defined
-  tags:
-    - configure_bareos_fd
-    - bareos_fd_messages
-    - bareos_fd
-
-- import_tasks: client_dir.yml
-  when: bareos_server is defined
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_client
-    - bareos_dir
+    - system
+    - redhat

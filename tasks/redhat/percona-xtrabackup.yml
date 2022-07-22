@@ -1,17 +1,12 @@
 ---
-- name: Update repo cache and install a few prerequisite packages
-  ansible.builtin.apt:
+- name: Update repo cache and add percona-release repo with yum
+  ansible.builtin.yum:
     name: "{{ item }}"
     state: present
+    disable_gpg_check: true
     update_cache: true
   with_items:
-    - xz-utils
-
-- name: Wget percona-release and install it with dpkg
-  ansible.builtin.apt:
-    deb: "{{ item }}"
-  with_items:
-    - "https://repo.percona.com/apt/percona-release_latest.{{ ansible_distribution_release }}_all.deb"
+    - "https://repo.percona.com/yum/percona-release-latest.noarch.rpm"
 
 - name: Gather the package facts
   ansible.builtin.package_facts:
@@ -27,10 +22,10 @@
 
 - name: Install Percona XtraBackup 2.4 with Bareos plugin and qpress
   when: mysql_version[0] == "5"
-  ansible.builtin.apt:
-    update_cache: true
+  ansible.builtin.yum:
     name: "{{ item }}"
     state: present
+    update_cache: true
   with_items:
     - bareos-filedaemon-percona-xtrabackup-python-plugin
     - percona-xtrabackup-24
@@ -40,10 +35,10 @@
 
 - name: Install Percona XtraBackup 8.0 with Bareos plugin and qpress
   when: mysql_version[0] == "8"
-  ansible.builtin.apt:
-    update_cache: true
+  ansible.builtin.yum:
     name: "{{ item }}"
     state: present
+    update_cache: true
   with_items:
     - bareos-filedaemon-percona-xtrabackup-python-plugin
     - percona-xtrabackup-80
