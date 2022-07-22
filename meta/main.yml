@@ -18,6 +18,7 @@ galaxy_info:
   galaxy_tags:
     - system
     - debian
+    - centos
     - el
     - backup
     - bareos
