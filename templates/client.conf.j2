@@ -3,7 +3,11 @@ Client {
     Name = {{ item.name }}-fd
     Description = "{{ item.description | default(item.name) }}"
     FDport = {{ item.fdport | default("9102") }}
+{% if ansible_os_family == 'Debian' %}
     Plugin Directory = /usr/lib/bareos/plugins
+{% elif ansible_os_family == 'RedHat' %}
+    Plugin Directory = /usr/lib64/bareos/plugins
+{% endif %}
     WorkingDirectory = /var/lib/bareos
     Maximum Concurrent Jobs = 20
 {% if item.tls_enable is defined %}
