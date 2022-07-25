@@ -1,0 +1,11 @@
+---
+- name: Configure bareos-fd messages
+  ansible.builtin.template:
+    src: messages.conf.j2
+    dest: /etc/bareos/bareos-fd.d/messages/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_fd.messages }}"
+  notify:
+    - restart bareos-fd service

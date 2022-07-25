@@ -1,0 +1,38 @@
+---
+- name: Create tls location
+  when: bareos_tls_path is defined
+  ansible.builtin.file: 
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_tls_path }}"
+
+- name: Configure bareos-fd clients
+  no_log: true
+  ansible.builtin.template:
+    src: client.conf.j2
+    dest: /etc/bareos/bareos-fd.d/client/{{ item.name }}-fd.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_fd.client }}"
+  notify:
+    - restart bareos-fd service
+
+- name: Find unmanaged bareos-fd client configurations
+  ansible.builtin.find:
+    paths: /etc/bareos/bareos-fd.d/client
+    file_type: file
+    excludes: "{{ bareos_fd.client | map(attribute='name') | product(['-fd.conf']) | map('join') | flatten }}"
+  register: fcout
+
+- name: Remove unmanaged bareos-fd client configurations
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ fcout.files | map(attribute='path') | unique }}"
+  notify:
+    - restart bareos-fd service
