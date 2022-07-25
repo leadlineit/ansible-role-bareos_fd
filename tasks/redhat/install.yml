@@ -13,6 +13,7 @@
     url: "{{ item }}"
     dest: /etc/yum.repos.d/bareos.repo
     mode: '0644'
+    validate_certs: false
   with_items:
     - "https://download.bareos.org/bareos/release/{{ bareos_release }}/CentOS_7/bareos.repo"
 

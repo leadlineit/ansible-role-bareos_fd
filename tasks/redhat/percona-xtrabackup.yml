@@ -12,9 +12,15 @@
   ansible.builtin.package_facts:
     manager: auto
 
-- name: Check and set version of mysql-community-server
+- name: Check and set version of mysql-community-server if exist
+  when: "'mysql-community-server' in ansible_facts.packages"
   ansible.builtin.set_fact:
     mysql_version: "{{ ansible_facts.packages['mysql-community-server'] | map(attribute='version') | map('split','.') | map(attribute='0') }}"
+
+- name: Check and set version of mysql-common if exist
+  when: "'mysql-common' in ansible_facts.packages"
+  ansible.builtin.set_fact:
+    mysql_version: "{{ ansible_facts.packages['mysql-common'] | map(attribute='version') | map('split','.') | map(attribute='0') }}"
 
 - name: Enable tools for percona-release
   ansible.builtin.command: percona-release enable-only tools

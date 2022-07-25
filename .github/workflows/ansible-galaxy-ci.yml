@@ -66,12 +66,11 @@ jobs:
           docker
       - name: Test with molecule
         run: |
-          molecule test
+          molecule test --scenario-name debian
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
-          MOLECULE_RELEASE: "debian"
 
   test_centos:
     name: Molecule tests for CentOS
@@ -103,12 +102,11 @@ jobs:
           docker
       - name: Test with molecule
         run: |
-          molecule test
+          molecule test --scenario-name centos
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
-          MOLECULE_RELEASE: "centos"
 
   release:
     name: Release
