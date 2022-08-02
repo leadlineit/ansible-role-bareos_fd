@@ -52,7 +52,7 @@ You can install and adjust Percona XtraBackup for MySQL bkp with:
 
 ```yaml
 ---
-  percona-xtrabackup: "yes"
+  percona_xtrabackup: "yes"
 ```
 
 The version of Percona XtraBackup will be dependent on your MySQL Server('mysql-community-server') version.

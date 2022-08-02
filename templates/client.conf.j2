@@ -7,6 +7,11 @@ Client {
     Plugin Directory = /usr/lib/bareos/plugins
 {% elif ansible_os_family == 'RedHat' %}
     Plugin Directory = /usr/lib64/bareos/plugins
+    {% if percona_xtrabackup is defined %}
+    Plugin Names = "bareos-fd-percona-xtrabackup"
+    {% elif %}
+    Plugin Names = "python"
+    {% endif %}
 {% endif %}
     WorkingDirectory = /var/lib/bareos
     Maximum Concurrent Jobs = 20
