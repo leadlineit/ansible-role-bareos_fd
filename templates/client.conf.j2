@@ -9,7 +9,7 @@ Client {
     Plugin Directory = /usr/lib64/bareos/plugins
     {% if percona_xtrabackup is defined %}
     Plugin Names = "bareos-fd-percona-xtrabackup"
-    {% elif %}
+    {% else %}
     Plugin Names = "python"
     {% endif %}
 {% endif %}
