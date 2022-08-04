@@ -14,7 +14,7 @@ Client {
     {% endif %}
 {% endif %}
     WorkingDirectory = /var/lib/bareos
-    Maximum Concurrent Jobs = 20
+    Maximum Concurrent Jobs = {{ item.max_jobs | default("20") }}
 {% if item.tls_enable is defined %}
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}
