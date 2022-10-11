@@ -8,4 +8,4 @@
     group: bareos
   with_items: "{{ bareos_fd.messages }}"
   notify:
-    - restart bareos-fd service
+    - Restart bareos-fd service

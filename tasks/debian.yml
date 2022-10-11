@@ -1,46 +1,53 @@
 ---
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/install.yml"
+- name: Include ./debian/install.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/install.yml"
   tags:
     - install_bareos_fd
     - install
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/director.yml"
+- name: Include ./debian/director.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/director.yml"
   when: bareos_fd.director is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_director
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/client.yml"
+- name: Include ./debian/client.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/client.yml"
   when: bareos_fd.client is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_client
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/percona-xtrabackup.yml"
+- name: Include ./debian/percona-xtrabackup.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/percona-xtrabackup.yml"
   when: bareos_fd.percona_xtrabackup is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_percona_xtrabackup
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/hashicorp.yml"
+- name: Include ./debian/hashicorp.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/hashicorp.yml"
   when: bareos_fd.hashicorp_vault is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_hashicorp
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/messages.yml"
+- name: Include ./debian/messages.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/messages.yml"
   when: bareos_fd.messages is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_messages
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/client_dir.yml"
+- name: Include ./debian/client_dir.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/debian/client_dir.yml"
   when: bareos_server is defined
   tags:
     - configure_bareos_dir

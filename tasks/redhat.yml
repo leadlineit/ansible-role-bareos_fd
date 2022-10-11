@@ -1,46 +1,53 @@
 ---
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/install.yml"
+- name: Include ./redhat/install.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/install.yml"
   tags:
     - install_bareos_fd
     - install
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/director.yml"
+- name: Include ./redhat/director.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/director.yml"
   when: bareos_fd.director is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_director
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/client.yml"
+- name: Include ./redhat/client.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/client.yml"
   when: bareos_fd.client is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_client
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/percona-xtrabackup.yml"
+- name: Include ./redhat/percona-xtrabackup.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/percona-xtrabackup.yml"
   when: bareos_fd.percona_xtrabackup is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_percona_xtrabackup
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/hashicorp.yml"
+- name: Include ./redhat/hashicorp.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/hashicorp.yml"
   when: bareos_fd.hashicorp_vault is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_hashicorp
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/messages.yml"
+- name: Include ./redhat/messages.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/messages.yml"
   when: bareos_fd.messages is defined
   tags:
     - configure_bareos_fd
     - bareos_fd_messages
     - bareos_fd
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/client_dir.yml"
+- name: Include ./redhat/client_dir.yml
+  ansible.builtin.include_tasks: "{{ role_path }}/tasks/redhat/client_dir.yml"
   when: bareos_server is defined
   tags:
     - configure_bareos_dir

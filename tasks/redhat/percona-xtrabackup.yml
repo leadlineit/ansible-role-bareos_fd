@@ -15,12 +15,12 @@
 - name: Check and set version of mysql-community-server if exist
   when: "'mysql-community-server' in ansible_facts.packages"
   ansible.builtin.set_fact:
-    mysql_version: "{{ ansible_facts.packages['mysql-community-server'] | map(attribute='version') | map('split','.') | map(attribute='0') }}"
+    mysql_version: "{{ ansible_facts.packages['mysql-community-server'] | map(attribute='version') | map('split', '.') | map(attribute='0') }}"
 
 - name: Check and set version of mysql-common if exist
   when: "'mysql-common' in ansible_facts.packages"
   ansible.builtin.set_fact:
-    mysql_version: "{{ ansible_facts.packages['mysql-common'] | map(attribute='version') | map('split','.') | map(attribute='0') }}"
+    mysql_version: "{{ ansible_facts.packages['mysql-common'] | map(attribute='version') | map('split', '.') | map(attribute='0') }}"
 
 - name: Set mysql_version for percona-server-server-57 if exist
   when: "'Percona-Server-server-57' in ansible_facts.packages"
@@ -47,7 +47,7 @@
     - percona-xtrabackup-24
     - qpress
   notify:
-    - restart bareos-fd service
+    - Restart bareos-fd service
 
 - name: Install Percona XtraBackup 8.0 with Bareos plugin and qpress
   when: mysql_version[0] == "8"
@@ -60,4 +60,4 @@
     - percona-xtrabackup-80
     - qpress
   notify:
-    - restart bareos-fd service
+    - Restart bareos-fd service

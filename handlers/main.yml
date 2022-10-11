@@ -1,15 +1,15 @@
 ---
-- name: enable bareos-fd service
+- name: Enable bareos-fd service
   ansible.builtin.service:
     name: bareos-fd
     enabled: true
 
-- name: restart bareos-fd service
+- name: Restart bareos-fd service
   ansible.builtin.service:
     name: bareos-fd
     state: restarted
 
-- name: reload bareos-dir service
+- name: Reload bareos-dir service
   ansible.builtin.service:
     name: bareos-dir
     state: reloaded

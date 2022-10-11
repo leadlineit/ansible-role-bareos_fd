@@ -19,7 +19,7 @@
     group: bareos
   with_items: "{{ bareos_fd.client }}"
   notify:
-    - restart bareos-fd service
+    - Restart bareos-fd service
 
 - name: Find unmanaged bareos-fd client configurations
   ansible.builtin.find:
@@ -35,4 +35,4 @@
   with_items:
     - "{{ fcout.files | map(attribute='path') | unique }}"
   notify:
-    - restart bareos-fd service
+    - Restart bareos-fd service

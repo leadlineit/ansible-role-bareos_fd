@@ -42,5 +42,5 @@
   with_items:
     - bareos-filedaemon
   notify:
-    - enable bareos-fd service
-    - restart bareos-fd service
+    - Enable bareos-fd service
+    - Restart bareos-fd service

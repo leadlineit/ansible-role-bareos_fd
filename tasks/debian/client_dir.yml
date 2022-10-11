@@ -9,4 +9,4 @@
   delegate_to: "{{ bareos_server }}"
   with_items: "{{ bareos_dir.client }}"
   notify:
-    - reload bareos-dir service
+    - Reload bareos-dir service
