@@ -9,3 +9,19 @@
   with_items: "{{ bareos_fd.messages }}"
   notify:
     - Restart bareos-fd service
+
+- name: Find unmanaged Bareos messages configurations
+  ansible.builtin.find:
+    paths: /etc/bareos/bareos-fd.d/messages
+    file_type: file
+    excludes: "{{ bareos_fd.messages | map(attribute='name') | product(['.conf']) | map('join') | flatten }}"
+  register: ffout
+
+- name: Remove unmanaged Bareos messages configurations
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ ffout.files | map(attribute='path') | unique }}"
+  notify:
+    - Restart bareos-fd service
