@@ -10,31 +10,21 @@
 
 - name: Add official Bareos package authentication key
   ansible.builtin.apt_key:
-    keyserver: "{{ bareos_keyserver }}"
-    id: "{{ bareos_apt_key }}"
+    url: "{{ item }}"
     state: present
-
-- name: Add the Bareos repository to APT sources for Debian 9.0
-  when: ansible_distribution_release == "stretch"
-  ansible.builtin.apt_repository:
-    repo: "{{ item }}"
-    state: present
-    filename: bareos
-    mode: '0644'
   with_items:
-    - "deb https://download.bareos.org/bareos/release/{{ bareos_release }}/Debian_9.0 /"
+    - "https://download.bareos.org/current/Debian_{{ ansible_distribution_major_version }}/Release.key"
 
 - name: Add the Bareos repository to APT sources for Debian 10/11
-  when: ansible_distribution_release != "stretch"
   ansible.builtin.apt_repository:
     repo: "{{ item }}"
     state: present
     filename: bareos
     mode: '0644'
   with_items:
-    - "deb https://download.bareos.org/bareos/release/{{ bareos_release }}/Debian_{{ ansible_distribution_major_version }} /"
+    - "deb https://download.bareos.org/current/Debian_{{ ansible_distribution_major_version }} /"
 
-- name: Install Bareos File Daemon
+- name: Install Bareos-FD
   ansible.builtin.apt:
     name: "{{ item }}"
     state: present

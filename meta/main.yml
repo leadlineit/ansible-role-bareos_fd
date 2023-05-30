@@ -2,15 +2,14 @@ galaxy_info:
   role_name: bareos_fd
   namespace: leadlineit
   author: Artem Kasianchuk
-  description: Install and configure Bareos File Daemon
+  description: Install and configure Bareos-FD
   license: MIT
-  min_ansible_version: '2.9'
+  min_ansible_version: '2.11'
   platforms:
     - name: Debian
       versions:
         - bullseye
         - buster
-        - stretch
     - name: EL
       versions:
         - '8'
@@ -18,8 +17,8 @@ galaxy_info:
   galaxy_tags:
     - system
     - debian
+    - rhel
     - centos
-    - el
     - backup
     - bareos
     - filedaemon

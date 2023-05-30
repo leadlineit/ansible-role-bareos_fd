@@ -5,15 +5,19 @@
     - name: Install requirements for Debian
       when: ansible_os_family == 'Debian'
       ansible.builtin.apt:
-        name: gnupg
+        name: "{{ item }}"
         state: present
         update_cache: true
+      with_items:
+        - gnupg
     - name: Install requirements for RedHat
       when: ansible_os_family == 'RedHat'
       ansible.builtin.yum:
-        name: gnupg
+        name: "{{ item }}"
         state: present
         update_cache: true
-    - name: "Include leadlineit.bareos_fd"
+      with_items:
+        - gnupg
+    - name: Include leadlineit.bareos_fd
       ansible.builtin.include_role:
-        name: "leadlineit.bareos_fd"
+        name: leadlineit.bareos_fd

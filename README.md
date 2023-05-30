@@ -1,14 +1,14 @@
-# Ansible Galaxy role for install and configure Bareos File Daemon.
+# Ansible Galaxy role for install and configure Bareos-FD (ver. 22.0.4).
 
 ![Build Status](https://github.com/leadlineit/ansible-role-bareos_fd/actions/workflows/ansible-galaxy-ci.yml/badge.svg)
 [![Galaxy Role](https://img.shields.io/badge/Ansible--Galaxy-leadlineit.bareos_fd-blue.svg?logo=ansible&logoColor=white)](https://galaxy.ansible.com/leadlineit/bareos_fd/)
 
-This role helps to install and configure Bareos File Daemon to Debian (stretch/buster/bullseye) or Red Hat EL(7/8).
+This role helps to install and configure Bareos-FD (ver. 22.0.4) to Debian (buster/bullseye) or RHEL(7/8).
 
 Requirements
 ------------
 
-This role requires Ansible 2.9 or higher.
+This role requires Ansible 2.11 or higher.
 
 Role Variables
 --------------
@@ -17,9 +17,6 @@ The variables that can be passed to this role and a brief description about them
 
 ```yaml
 ---
-bareos_keyserver: keyserver.ubuntu.com
-bareos_apt_key: E01957D6C9FED482
-bareos_release: 21
 bareos_tls_path: /etc/bareos/tls
 bareos_tls_certs: your.bareos.dir.com
 
@@ -47,7 +44,7 @@ bareos_fd:
 ```
 
 The variables above are optional. They don't have a default value, so if you don't define them - tasks using them will be skipped. 
-You can set only some of them, or not set at all (in this case, you will simply install Bareos Storage with default configuration).
+You can set only some of them, or not set at all (in this case, you will simply install Bareos-FD with default configuration).
 
 You can install and adjust Percona XtraBackup for MySQL bkp with:
 

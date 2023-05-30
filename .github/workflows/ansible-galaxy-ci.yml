@@ -16,17 +16,17 @@ defaults:
 jobs:
   lint:
     name: Linting the syntax
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: 'leadlineit.bareos_fd'
 
       - name: Set up Python 3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.10'
 
       - name: Install test dependencies
         run: pip install yamllint
@@ -37,7 +37,7 @@ jobs:
 
   test_debian:
     name: Molecule tests for Debian
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - lint
     strategy:
@@ -45,16 +45,15 @@ jobs:
         distro:
           - bullseye
           - buster
-          - stretch
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: 'leadlineit.bareos_fd'
       - name: Set up Python 3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.10'
       - name: Install dependencies
         run: |
           pip install --upgrade pip
@@ -74,7 +73,7 @@ jobs:
 
   test_centos:
     name: Molecule tests for CentOS
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - lint
     strategy:
@@ -84,13 +83,13 @@ jobs:
           - stream8
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: 'leadlineit.bareos_fd'
       - name: Set up Python 3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.10'
       - name: Install dependencies
         run: |
           pip install --upgrade pip
@@ -113,17 +112,17 @@ jobs:
     needs:
       - test_debian
       - test_centos
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: 'leadlineit.bareos_fd'
 
       - name: Set up Python 3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.10'
 
       - name: Install Ansible
         run: pip3 install ansible-base
