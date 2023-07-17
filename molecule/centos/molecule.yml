@@ -9,7 +9,7 @@ driver:
   name: docker
 platforms:
   - name: instance-centos
-    image: "6nsh/centos:molecule-${MOLECULE_DISTRO:-stream8}"
+    image: "6nsh/centos:${MOLECULE_DISTRO:-stream8}-ansible"
     command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
