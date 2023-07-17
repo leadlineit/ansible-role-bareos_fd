@@ -30,11 +30,11 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install ansible-lint \
-          yamllint \
-          flake8
+          yamllint
       - name: Lint role code
         run: |
           ansible-lint .
+          yamllint .
 
   test_debian:
     name: Molecule tests for Debian
