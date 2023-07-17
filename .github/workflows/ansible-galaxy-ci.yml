@@ -34,8 +34,8 @@ jobs:
           flake8
       - name: Lint role code
         run: |
-          ansible-lint . \
-          yamllint . \
+          ansible-lint .
+          yamllint .
           flake8 .
 
   test_debian:
