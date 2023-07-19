@@ -2,7 +2,6 @@
 
 ![Build Status](https://github.com/leadlineit/ansible-role-bareos_fd/actions/workflows/ansible-galaxy-ci.yml/badge.svg)
 [![Galaxy Role](https://img.shields.io/badge/Ansible--Galaxy-leadlineit.bareos_fd-blue.svg?logo=ansible&logoColor=white)](https://galaxy.ansible.com/leadlineit/bareos_fd/)
-![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F20579%2F&query=$.min_ansible_version)
 
 This role helps to install and configure Bareos-FD (ver. 22).
 
