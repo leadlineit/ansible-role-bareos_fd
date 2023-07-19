@@ -17,14 +17,14 @@
   with_items:
     - "https://download.bareos.org/current/EL_7/bareos.repo"
 
-- name: Add the Bareos repository to YUM repo for RHEL 8
-  when: ansible_distribution_major_version == "8"
+- name: Add the Bareos repository to YUM repo for RHEL 8/9
+  when: ansible_distribution_major_version == "8" or ansible_distribution_major_version == "9"
   ansible.builtin.get_url:
     url: "{{ item }}"
     dest: /etc/yum.repos.d/bareos.repo
     mode: '0644'
   with_items:
-    - "https://download.bareos.org/current/EL_8/bareos.repo"
+    - "https://download.bareos.org/current/EL_{{ ansible_distribution_major_version }}/bareos.repo"
 
 - name: Install Bareos-FD
   ansible.builtin.yum:

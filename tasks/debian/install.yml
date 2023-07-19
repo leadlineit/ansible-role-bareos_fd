@@ -15,7 +15,7 @@
   with_items:
     - "https://download.bareos.org/current/Debian_{{ ansible_distribution_major_version }}/Release.key"
 
-- name: Add the Bareos repository to APT sources for Debian 10/11
+- name: Add the Bareos repository to APT sources for Debian 10/11/12
   ansible.builtin.apt_repository:
     repo: "{{ item }}"
     state: present

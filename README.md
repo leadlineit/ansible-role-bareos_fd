@@ -1,9 +1,19 @@
-# Ansible Galaxy role for install and configure Bareos-FD (ver. 22.0.4).
+# Ansible Galaxy role for install and configure Bareos-FD (ver. 22).
 
 ![Build Status](https://github.com/leadlineit/ansible-role-bareos_fd/actions/workflows/ansible-galaxy-ci.yml/badge.svg)
 [![Galaxy Role](https://img.shields.io/badge/Ansible--Galaxy-leadlineit.bareos_fd-blue.svg?logo=ansible&logoColor=white)](https://galaxy.ansible.com/leadlineit/bareos_fd/)
+![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F20579%2F&query=$.min_ansible_version)
 
-This role helps to install and configure Bareos-FD (ver. 22.0.4) to Debian (buster/bullseye) or RHEL(7/8).
+This role helps to install and configure Bareos-FD (ver. 22).
+
+Supported OSes
+--------------
+- Debian 12 (bookworm)
+- Debian 11 (bullseye)
+- Debian 10 (buster)
+- RHEL 9 (CentOS Stream 9)
+- RHEL 8 (CentOS Stream 8)
+- RHEL 7 (CentOS 7)
 
 Requirements
 ------------

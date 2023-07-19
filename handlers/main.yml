@@ -14,7 +14,3 @@
     name: bareos-dir
     state: reloaded
   delegate_to: "{{ bareos_server }}"
-
-
-
-

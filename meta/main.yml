@@ -8,10 +8,12 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
+        - bookworm
         - bullseye
         - buster
     - name: EL
       versions:
+        - '9'
         - '8'
         - '7'
   galaxy_tags:

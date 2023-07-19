@@ -22,15 +22,18 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: 'leadlineit.bareos_fd'
+
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+    
       - name: Install test dependencies
         run: |
-          pip install --upgrade pip
-          pip install ansible-lint \
+          pip3 install --upgrade pip
+          pip3 install ansible-lint \
           yamllint
+      
       - name: Lint role code
         run: |
           ansible-lint .
@@ -44,25 +47,28 @@ jobs:
     strategy:
       matrix:
         distro:
-          - bullseye
-          - buster
+          - '12'
+          - '11'
+          - '10'
     steps:
       - name: checkout
         uses: actions/checkout@v3
         with:
           path: 'leadlineit.bareos_fd'
+
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+    
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install ansible \
+          pip3 install --upgrade pip
+          pip3 install ansible \
           molecule-plugins[docker] \
+  
       - name: Test with molecule
-        run: |
-          molecule test --scenario-name debian
+        run: molecule test --scenario-name debian
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
@@ -76,25 +82,28 @@ jobs:
     strategy:
       matrix:
         distro:
+          - '-stream9'
+          - '-stream8'
           - '7'
-          - stream8
     steps:
       - name: checkout
         uses: actions/checkout@v3
         with:
           path: 'leadlineit.bareos_fd'
+      
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+      
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install ansible \
-          molecule-plugins[docker,lint] \
+          pip3 install --upgrade pip
+          pip3 install ansible \
+          molecule-plugins[docker,lint]
+      
       - name: Test with molecule
-        run: |
-          molecule test --scenario-name centos
+        run: molecule test --scenario-name centos
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
