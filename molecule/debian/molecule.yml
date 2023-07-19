@@ -9,7 +9,7 @@ driver:
   name: docker
 platforms:
   - name: instance-debian
-    image: "6nsh/debian${MOLECULE_DISTRO:-"11"}-ansible"
+    image: "6nsh/debian${MOLECULE_DISTRO:-11}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
