@@ -104,7 +104,7 @@ jobs:
         run: |
           pip3 install --upgrade pip
           pip3 install ansible \
-          molecule-plugins[docker,lint]
+          molecule-plugins[docker]
       
       - name: Test with molecule
         run: molecule test --scenario-name centos
