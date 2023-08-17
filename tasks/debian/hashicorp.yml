@@ -14,9 +14,7 @@
     stat_list: "{{ stat_list | default([]) + [{'cname': item.item.name, 'status': item.status, 'client': item.item.client, 'role': item.item.role, 'ttl': item.item.ttl}] }}"
   with_items: "{{ cnout.results }}"
   loop_control:
-    label: 
-      - "{{ item.item.name }}"
-      - "{{ item.status }}"
+    label: "{{ item.item.name, item.status }}"
 
 - name: Generate client certificate's with Hashicorp Vault
   ansible.builtin.uri:
@@ -40,8 +38,7 @@
   when: item.item.status == 404
   with_items: "{{ output.results }}"
   loop_control:
-    label:
-      - "{{ item.item.cname }}"
+    label: "{{ item.item.cname }}"
 
 - name: Save client certificate to Bareos TLS directory (bareos_tls_path)
   ansible.builtin.copy:
@@ -54,8 +51,7 @@
   with_items: "{{ cert_list }}"
   run_once: true
   loop_control:
-    label: 
-      - "{{ item.cname }}.crt"
+    label: "{{ item.cname }}.crt"
 
 - name: Save client private key to Bareos TLS directory (bareos_tls_path)
   ansible.builtin.copy:
@@ -68,8 +64,7 @@
   with_items: "{{ cert_list }}"
   run_once: true
   loop_control:
-    label: 
-      - "{{ item.cname }}.key"
+    label: "{{ item.cname }}.key"
 
 - name: Add client serial number to Hashicorp Vault
   ansible.builtin.uri:
@@ -88,6 +83,4 @@
     - item.status == 404
   with_items: "{{ cert_list }}"
   loop_control:
-    label: 
-      - "{{ item.cname }}"
-      - "{{ item.serial_number }}"
+    label: "{{ item.cname, item.serial_number }}"
