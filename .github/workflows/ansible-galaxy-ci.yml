@@ -47,7 +47,6 @@ jobs:
       matrix:
         distro:
           - bullseye
-          - buster
     steps:
       - name: checkout
         uses: actions/checkout@v3
