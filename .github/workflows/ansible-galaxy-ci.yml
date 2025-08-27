@@ -70,7 +70,7 @@ jobs:
           docker
   
       - name: Test with molecule
-        run: molecule test --scenario-name debian
+        run: molecule test -s debian
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
