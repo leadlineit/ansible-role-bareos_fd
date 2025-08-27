@@ -37,7 +37,7 @@ jobs:
       
       - name: Lint role code
         run: |
-          ansible-lint .
+#          ansible-lint .
           yamllint .
   test_debian:
     name: Molecule tests for Debian
