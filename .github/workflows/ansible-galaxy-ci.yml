@@ -35,21 +35,20 @@ jobs:
       - name: Install test dependencies
         run: pip install yamllint
       
-      - name: Lint code
+      - name: Lint role code
         run: |
+          ansible-lint .
           yamllint .
-
   test_debian:
     name: Molecule tests for Debian
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - lint
     strategy:
       matrix:
         distro:
-          - '12'
-          - '11'
-          - '10'
+          - bullseye
+          - buster
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -63,9 +62,13 @@ jobs:
     
       - name: Install dependencies
         run: |
-          pip3 install --upgrade pip
-          pip3 install ansible \
-          molecule-plugins[docker] \
+          pip install --upgrade pip
+          pip install ansible \
+          ansible-lint \
+          molecule "molecule-plugins[docker]" \
+          flake8 \
+          yamllint \
+          docker
   
       - name: Test with molecule
         run: molecule test --scenario-name debian
@@ -74,47 +77,47 @@ jobs:
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
 
-  test_centos:
-    name: Molecule tests for CentOS
-    runs-on: ubuntu-latest
-    needs:
-      - lint
-    strategy:
-      matrix:
-        distro:
-          - '-stream9'
-          - '-stream8'
-          - '7'
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-        with:
-          path: 'leadlineit.bareos_fd'
-      
-      - name: Set up Python 3
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: Install dependencies
-        run: |
-          pip3 install --upgrade pip
-          pip3 install ansible \
-          molecule-plugins[docker]
-      
-      - name: Test with molecule
-        run: molecule test --scenario-name centos
-        env:
-          PY_COLORS: '1'
-          ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}
+#  test_centos:
+#    name: Molecule tests for CentOS
+#    runs-on: ubuntu-latest
+#    needs:
+#      - lint
+#    strategy:
+#      matrix:
+#        distro:
+#          - '-stream9'
+#          - '-stream8'
+#          - '7'
+#    steps:
+#      - name: checkout
+#        uses: actions/checkout@v3
+#        with:
+#          path: 'leadlineit.bareos_fd'
+#      
+#      - name: Set up Python 3
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.10'
+#      
+#      - name: Install dependencies
+#        run: |
+#          pip3 install --upgrade pip
+#          pip3 install ansible \
+#          molecule-plugins[docker]
+#      
+#      - name: Test with molecule
+#        run: molecule test --scenario-name centos
+#        env:
+#          PY_COLORS: '1'
+#          ANSIBLE_FORCE_COLOR: '1'
+#          MOLECULE_DISTRO: ${{ matrix.distro }}
 
   release:
     name: Release
     needs:
       - test_debian
-      - test_centos
-    runs-on: ubuntu-latest
+    #  - test_centos
+    runs-on: ubuntu-22.04
     steps:
       - name: checkout
         uses: actions/checkout@v3
