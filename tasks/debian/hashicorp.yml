@@ -1,20 +1,30 @@
 ---
-- name: Checking if client certificate are exist
+- name: Checking if client certificate exists
   ansible.builtin.uri:
     url: "{{ bareos_fd.hashicorp_vault.address }}/v1/{{ item.client }}/data/hosts/{{ item.name }}/bareos-certs"
     headers:
       X-Vault-Token: "{{ bareos_fd.hashicorp_vault.token }}"
       Content-Type: "application/json"
+    return_content: yes
+    status_code: [200, 404, 403]
   register: cnout
   failed_when: false
   loop: "{{ bareos_fd.hashicorp_vault.clients }}"
+  delegate_to: localhost
+  become: false
 
 - name: Create list for status code
   ansible.builtin.set_fact:
-    stat_list: "{{ stat_list | default([]) + [{'cname': item.item.name, 'status': item.status, 'client': item.item.client, 'role': item.item.role, 'ttl': item.item.ttl}] }}"
+    stat_list: "{{ stat_list | default([]) + [{
+        'cname': item.item.name,
+        'status': item.status,
+        'client': item.item.client,
+        'role': item.item.role,
+        'ttl': item.item.ttl
+      }] }}"
   with_items: "{{ cnout.results }}"
   loop_control:
-    label: "{{ item.item.name, item.status }}"
+    label: "{{ item.status }}"
 
 - name: Generate client certificate's with Hashicorp Vault
   ansible.builtin.uri:
@@ -31,6 +41,9 @@
   when: item.status == 404
   with_items: "{{ stat_list }}"
   register: output
+  delegate_to: localhost
+  become: false
+
 
 - name: Create list for serial key
   ansible.builtin.set_fact:
@@ -83,4 +96,6 @@
     - item.status == 404
   with_items: "{{ cert_list }}"
   loop_control:
-    label: "{{ item.cname, item.serial_number }}"
+    label: "{{ item.cname }}"
+  delegate_to: localhost
+  become: false
