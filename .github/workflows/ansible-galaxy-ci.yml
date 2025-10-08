@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.14'
     
       - name: Install test dependencies
         run: pip install yamllint
@@ -56,7 +56,7 @@ jobs:
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.14'
     
       - name: Install dependencies
         run: |
@@ -125,7 +125,7 @@ jobs:
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.14'
 
       - name: Install Ansible
         run: pip3 install ansible-base
