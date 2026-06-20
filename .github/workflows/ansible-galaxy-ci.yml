@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           path: 'leadlineit.bareos_fd'
 
@@ -49,7 +49,7 @@ jobs:
           - bullseye
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           path: 'leadlineit.bareos_fd'
 
@@ -118,7 +118,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           path: 'leadlineit.bareos_fd'
 
